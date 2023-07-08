@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from database import create_db_connection
 
 # Create an instance of the Flask class
@@ -16,7 +16,7 @@ def index():
     cursor.close()
     connection.close()
 
-    return str(data)
+    return jsonify(data)
 
 # Run the Flask application
 if __name__ == '__main__':
