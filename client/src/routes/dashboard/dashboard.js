@@ -1,20 +1,15 @@
 import React from "react";
-<<<<<<< Updated upstream
 import { useState } from "react";
 import styled from "styled-components";
 
-import BarChart from "chart/BarChart.js";
+import BarChart from "./chart/barChart";
 import Profile from "profile/Profile.js";
 
-=======
-import BarChart from "./chart/barChart";
->>>>>>> Stashed changes
 function Dashboard(props) {
   let visible,
     setVisible = useState(<Profile />);
 
   return (
-<<<<<<< Updated upstream
     <DashboardContainer>
       <div className="dashboard-aside">
         <button onClick={setVisible}></button>
@@ -24,14 +19,6 @@ function Dashboard(props) {
       }
       </div>
     </DashboardContainer>
-=======
-    <div className="dashboard-container">
-      <div className="dashboard-aside"></div>
-      <div className="dashboard-main">
-        <BarChart></BarChart>
-      </div>
-    </div>
->>>>>>> Stashed changes
   );
 }
 
