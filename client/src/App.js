@@ -10,7 +10,7 @@ import { useState } from "react";
 import Authentication from "./routes/authentication/authentication";
 import Courses from "./routes/courses/courses";
 import Dashboard from "./routes/dashboard/dashboard";
-import NotFoundPage from "./routes/notFoundPage";
+import NotFoundPage from "./routes/NotFoundPage";
 import HomePage from "./routes/home/HomePage";
 import LandingPage from "./routes/landing/LandingPage";
 import ForgetPasswordPage from "./routes/forgot-password/ForgetPasswordPage";
