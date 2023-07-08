@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 import bcrypt
@@ -38,32 +39,48 @@ def get_data():
 
 @app.route('/api/register', methods=['POST'])
 def registerUser():
-    data = request.json
-    userID = data.get('userID')
-    password = data.get('password')
-    role = data.get('role')
-
-    cur.execute(f'SELECT userID from logins WHERE userID = {userID}')
-    rows = cur.fetchall()
+    userID = request.form.get('userID')
+    password = request.form.get('password')
+    role = request.form.get('role')
+    cur = mysql.connection.cursor()
+    cur.execute(f'SELECT userID from logins WHERE userID = \'{userID}\'')
+    rows = list(cur.fetchall())
+    print(rows)
     if (len(rows) != 0):
         return 'Sorry, this username already exists'
     else:
         hashedpassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO logins (userID, password, role) VALUES (%s, %s, %s)", (userID, password, role))
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO logins (userID, password, role) VALUES (%s, %s, %s)", (userID, hashedpassword, role))
+        return 'Success'
 
-
-@app.route('/api/login', method = ['POST'])
+@app.route('/api/login', methods = ['POST'])
 def loginUser():
-    data = request.json
-    userID = data.get('userID')
-    password = data.get('password')
-    role = data.get('role')
-
+    userID = request.form.get('userID')
+    password = request.form.get('password')
     hashedpassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    cur.execute(f'SELECT userID from logins WHERE userID = {userID}')
-
+    cur = mysql.connection.cursor()
+    cur.execute(f'SELECT password from logins WHERE userID = \'{userID}\'')
+    rows = list(cur.fetchall())
     
+    if (hashedpassword == rows[0]):
+        return redirect('/')
+    else:
+        return 'Invalid password'
+
+@app.route('/api/courses', methods = ['GET'])
+def getCourses():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM courses")
+    rows = cur.fetchall()
+    cur.close()
+    courses =[]
+    course ={}
+    for result in rows:
+        course = {'id': result[0], 'title': result[1], 'imageUrl': result[2], 'hours': result[3], 'rating': result[4], 'level':result[5]}
+        courses.append(course)
+        course={}
+    return jsonify(courses)
 
 
 
