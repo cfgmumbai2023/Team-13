@@ -18,10 +18,9 @@ function Dashboard(props) {
         <button onClick={() => setVisible(2)}>Courses</button>
         <button onClick={() => setVisible(3)}>Certifications</button>
       </div>
-      {console.log(props)}
       <div className="dashboard-main">
         { visible === 0 && <Profile data={props.userData} /> }
-        { visible === 1 && <BarChart data={props.data} /> }
+        { visible === 1 && <BarChart data={props.userData} /> }
       </div>
     </DashboardContainer>
   );
