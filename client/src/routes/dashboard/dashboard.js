@@ -3,7 +3,11 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import BarChart from "./chart/barChart";
-import Profile from "profile/Profile.js";
+import Profile from "./profile/profile.js";
+
+const mapping = {
+
+}
 
 function Dashboard(props) {
   let visible,
@@ -17,6 +21,7 @@ function Dashboard(props) {
       <div className="dashboard-main">{
         visible
       }
+      <Profile />
       </div>
     </DashboardContainer>
   );
@@ -29,6 +34,9 @@ const DashboardContainer = styled.div`
 
   .dashboard-aside {
     width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .dashboard-main {
