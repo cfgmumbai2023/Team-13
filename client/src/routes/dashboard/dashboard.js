@@ -1,7 +1,6 @@
 import React from "react";
 
-function Dashboard() {
-
+function Dashboard(props) {
   return (
     <div className="dashboard-container">
       <div className="dashboard-aside"></div>
