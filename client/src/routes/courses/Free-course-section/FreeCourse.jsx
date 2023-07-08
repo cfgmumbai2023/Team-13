@@ -8,6 +8,7 @@ import { Container, Row, Col } from "reactstrap";
 import FreeCourseCard from "./FreeCourseCard";
 import football from "../assets/coach-football-team.jpeg";
 //import cricket from "../../assests/images/cricket.jpg";
+import 'reactjs-popup/dist/index.css';
 
 import "./free-course.css";
 
