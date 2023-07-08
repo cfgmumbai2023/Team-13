@@ -37,3 +37,11 @@
 .ri-road-map-line {
   color: rgb(45, 175, 136);
 }
+.popup p {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  color:rgb(65, 135, 65);
+  /* background-color: rgb(14, 141, 59); */
+}
