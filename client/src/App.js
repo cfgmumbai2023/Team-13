@@ -10,7 +10,7 @@ import { useState } from "react";
 import Authentication from "./routes/authentication/authentication";
 import Courses from "./routes/courses/courses";
 import Dashboard from "./routes/dashboard/dashboard";
-import NotFoundPage from "./routes/NotFoundPage";
+import NotFoundPage from "./routes/notFoundPage";
 import HomePage from "./routes/home/HomePage";
 import LandingPage from "./routes/landing/LandingPage";
 import ForgetPasswordPage from "./routes/forgot-password/ForgetPasswordPage";
@@ -20,8 +20,12 @@ import LoginPage from "./routes/login/LoginPage";
 import "./App.css";
 
 function App() {
+
+  // Fetch from server when endpoints are created.
   let userData,
-    setData = useState(true);
+    setData = useState({
+      userID: 0, firstName: 'John', lastName: 'Doe', age: 25, emailID: 'johndoe@gmail.com', imageLink: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
+    });
 
   return (
     <BrowserRouter>
@@ -32,12 +36,12 @@ function App() {
           element={<Authentication userData={userData} setData={setData} />}
         />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/dashboard" element={<Dashboard userData={userData} />} />
         <Route path="/login" element={ <LoginPage/> } />
         <Route path="/register" element={ <RegisterPage/> } />
         <Route path="/forget-password" element={ <ForgetPasswordPage/> } />
         <Route path="/home" element={ <HomePage/> } />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
