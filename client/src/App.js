@@ -10,7 +10,7 @@ import { useState } from "react";
 import Authentication from "./routes/authentication/authentication";
 import Courses from "./routes/courses/courses";
 import Dashboard from "./routes/dashboard/dashboard";
-import NotFoundPage from "./routes/NotFoundPage";
+import NotFoundPage from "./routes/notFoundPage";
 
 import "./App.css";
 
@@ -26,7 +26,7 @@ function App() {
           element={<Authentication userData={userData} setData={setData} />}
         />
         <Route path="/courses" element={<Courses />} />
-        {userData & <Route path="/dashboard" element={<Dashboard />} />}
+        <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
