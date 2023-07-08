@@ -5,7 +5,7 @@ import { Bar } from "react-chartjs-2";
 const BarChart = () => {
   const labels = ["January", "February", "March", "April", "May", "June"];
   const data = {
-    
+  
     datasets: [
       {
         label: "My First dataset",
