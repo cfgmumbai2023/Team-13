@@ -16,6 +16,7 @@ import LandingPage from "./routes/landing/LandingPage";
 import ForgetPasswordPage from "./routes/forgot-password/ForgetPasswordPage";
 import RegisterPage from "./routes/register/RegisterPage";
 import LoginPage from "./routes/login/LoginPage";
+import Video from "./components/Video";
 
 import "./App.css";
 
