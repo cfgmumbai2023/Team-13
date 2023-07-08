@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import BarChart from "./chart/barChart";
-import Profile from "profile/Profile.js";
+import Profile from "./profile/profile.js";
 
 function Dashboard(props) {
   let visible,

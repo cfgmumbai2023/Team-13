@@ -11,7 +11,7 @@ import Authentication from "./routes/authentication/authentication";
 import Courses from "./routes/courses/courses";
 import Dashboard from "./routes/dashboard/dashboard";
 
-import NotFoundPage from "./routes/notFoundPage";
+import NotFoundPage from "./routes/NotFoundPage";
 
 import "./App.css";
 
