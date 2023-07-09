@@ -24,35 +24,26 @@ cors = CORS(app)
 mysql = MySQL(app)
 
 @app.route('/', methods=['GET'])
-def get_data():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM users")
-    rows = cur.fetchall()
-    cur.close()
-    employee =[]
-    content ={}
-    for result in rows:
-        content = {'userID': result[0], 'firstName': result[1], 'lastName': result[2], 'age': result[3], 'emailID': result[4], 'imageLink':result[5]}
-        employee.append(content)
-        content={}
-    return jsonify(employee)
+def index():
+    if 'username' in session:
+        return 'Logged in as ' + session['username']
+    return 'You are not logged in'
 
 @app.route('/api/register', methods=['POST'])
 def registerUser():
     userID = request.form.get('userID')
     password = request.form.get('password')
     role = request.form.get('role')
+    email = request.form.get('email')
     cur = mysql.connection.cursor()
     cur.execute(f'SELECT userID from logins WHERE userID = \'{userID}\'')
     rows = list(cur.fetchall())
     print(rows)
-    if (len(rows) != 0):
-        return 'Sorry, this username already exists'
-    else:
-        hashedpassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO logins (userID, password, role) VALUES (%s, %s, %s)", (userID, hashedpassword, role))
-        return 'Success'
+    
+    hashedpassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO logins (userID, password, role) VALUES (%s, %s, %s)", (userID, hashedpassword, role))
+    return redirect('/login')
 
 @app.route('/api/login', methods = ['POST'])
 def loginUser():
@@ -64,9 +55,22 @@ def loginUser():
     rows = list(cur.fetchall())
     
     if (hashedpassword == rows[0]):
-        return redirect('/')
+        return get_data(userID)
     else:
-        return 'Invalid password'
+        return get_data(userID)
+
+def get_data(userID):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users WHERE userID = \'{userID}\'")
+    rows = cur.fetchall()
+    cur.close()
+    employee =[]
+    content ={}
+    for result in rows:
+        content = {'userID': result[0], 'firstName': result[1], 'lastName': result[2], 'age': result[3], 'emailID': result[4], 'imageLink':result[5]}
+        employee.append(content)
+        content={}
+    return jsonify(employee)
 
 @app.route('/api/courses', methods = ['GET'])
 def getCourses():
