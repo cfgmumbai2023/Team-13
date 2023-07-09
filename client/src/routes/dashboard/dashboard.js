@@ -3,8 +3,8 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import BarChart from "./chart/barChart";
-import Profile from "./profile/profile.js";
-
+import Profile from "./profile/profile.js"
+import AvailableCourses from "./certification/availableCourses";
 
 function Dashboard(props) {
   let [visible,
@@ -21,6 +21,7 @@ function Dashboard(props) {
       <div className="dashboard-main">
         { visible === 0 && <Profile data={props.userData} /> }
         { visible === 1 && <BarChart data={props.userData} /> }
+        { visible === 3 && <AvailableCourses data={props.userData} /> }
       </div>
     </DashboardContainer>
   );
