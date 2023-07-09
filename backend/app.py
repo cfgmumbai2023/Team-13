@@ -5,6 +5,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 import bcrypt
+import json
 
 # Load the environment variables from .env file
 load_dotenv()
@@ -47,30 +48,27 @@ def registerUser():
 
 @app.route('/api/login', methods = ['POST'])
 def loginUser():
-    userID = request.form.get('userID')
-    password = request.form.get('password')
-    hashedpassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    data = request.get_json()
+    userID = data['userID']
+    password = data['password']
+    
+    # hashedpassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
     cur = mysql.connection.cursor()
     cur.execute(f'SELECT password from logins WHERE userID = \'{userID}\'')
     rows = list(cur.fetchall())
+    # print(hashedpassword, '\n')
 
-    if (hashedpassword == rows[0]):
-        return get_data(userID)
+    if (password == rows[0][0]):
+        cur = mysql.connection.cursor()
+        cur.execute(f"SELECT * FROM users WHERE userID = \'{userID}\'")
+        rows = cur.fetchall()
+        cur.close()
+        content = {'userID': rows[0][0], 'name': rows[0][1], 'number': rows[0][2], 'address': rows[0][3], 'country': rows[0][4], 'pincode':rows[0][5], 'sport':rows[0][6], 'agegroup':rows[0][7], 'graddegree':rows[0][8]}
+        json_data = json.dumps(content)
+        return json_data
     else:
-        return get_data(userID)
-
-def get_data(userID):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM users WHERE userID = \'{userID}\'")
-    rows = cur.fetchall()
-    cur.close()
-    employee =[]
-    content ={}
-    for result in rows:
-        content = {'userID': result[0], 'firstName': result[1], 'lastName': result[2], 'age': result[3], 'emailID': result[4], 'imageLink':result[5]}
-        employee.append(content)
-        content={}
-    return jsonify(employee)
+        return 'Wrong Password'
 
 @app.route('/api/courses', methods = ['GET'])
 def getCourses():

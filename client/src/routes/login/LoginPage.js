@@ -25,8 +25,8 @@ export default function SignInPage(props) {
     e.preventDefault();
 
     axios.post('http://localhost:5000/api/login', {
-      firstName: uname,
-      lastName: password,
+      userID: uname,
+      password: password,
     })
     .then(function (response) {
       console.log(response);
