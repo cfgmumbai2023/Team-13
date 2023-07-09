@@ -53,7 +53,7 @@ def loginUser():
     cur = mysql.connection.cursor()
     cur.execute(f'SELECT password from logins WHERE userID = \'{userID}\'')
     rows = list(cur.fetchall())
-    
+
     if (hashedpassword == rows[0]):
         return get_data(userID)
     else:

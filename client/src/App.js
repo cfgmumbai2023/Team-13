@@ -34,6 +34,7 @@ function App() {
       emailID: "johndoe@gmail.com",
       imageLink:
         "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
+      courses: []
     });
   }, []);
 
@@ -49,7 +50,14 @@ function App() {
         <Route path="/dashboard" element={<Dashboard userData={userData} />} />
         <Route
           path="/login"
-          element={<LoginPage login={login} isUserLoggedIn={isUserLoggedIn} />}
+          element={
+            <LoginPage
+              userData={userData}
+              setData={setData}
+              login={login}
+              isUserLoggedIn={isUserLoggedIn}
+            />
+          }
         />
         <Route
           path="/register"
