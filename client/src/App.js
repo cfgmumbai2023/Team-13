@@ -23,6 +23,7 @@ import "./App.css";
 function App() {
   // Fetch from server when endpoints are created.
   let [userData, setData] = useState(null);
+  let [login, isUserLoggedIn] = useState(false);
 
   useEffect(() => {
     setData({
@@ -46,8 +47,16 @@ function App() {
         />
         <Route path="/courses" element={<Courses />} />
         <Route path="/dashboard" element={<Dashboard userData={userData} />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={<LoginPage login={login} isUserLoggedIn={isUserLoggedIn} />}
+        />
+        <Route
+          path="/register"
+          element={
+            <RegisterPage login={login} isUserLoggedIn={isUserLoggedIn} />
+          }
+        />
         <Route path="/forget-password" element={<ForgetPasswordPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
