@@ -31,19 +31,21 @@ const DashboardContainer = styled.div`
   display: flex;
   height: 100vh;
   width: 100%;
+  background-image: linear-gradient(to top right, rgba(0,0,255,1), rgba(0,0,255,0));
 
   .dashboard-aside {
     width: 25%;
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 20%;
+    margin-top: 15%;
     align-items: center;
     gap: 10px;
 
     & > button {
       min-width: 250px;
       padding: 10px 25px;
+      border-radius:20px;
     }
 
     & > button.active {
@@ -55,6 +57,8 @@ const DashboardContainer = styled.div`
   .dashboard-main {
     width: 75%;
     min-height: 100%;
+    margin-top: 15%;
+    margin-left: 5%;
   }
 `;
 

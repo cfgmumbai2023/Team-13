@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 import "./loginPageStyle.css";
 import "../../App.css";
@@ -9,6 +10,7 @@ export default function SignInPage(props) {
   const [role, setRole] = useState("");
   const [uname, setUname] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (event, setter) => {
     const value = event.target.value;
@@ -30,6 +32,7 @@ export default function SignInPage(props) {
     })
     .then(function (response) {
       console.log(response);
+      navigate("/dashboard");
     })
     .catch(function (error) {
       console.log(error);

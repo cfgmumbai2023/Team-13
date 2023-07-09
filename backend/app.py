@@ -64,7 +64,7 @@ def loginUser():
         cur.execute(f"SELECT * FROM users WHERE userID = \'{userID}\'")
         rows = cur.fetchall()
         cur.close()
-        content = {'userID': rows[0][0], 'name': rows[0][1], 'number': rows[0][2], 'address': rows[0][3], 'country': rows[0][4], 'pincode':rows[0][5], 'sport':rows[0][6], 'agegroup':rows[0][7], 'graddegree':rows[0][8]}
+        content = {'userID': rows[0][0], 'name': rows[0][1], 'number': rows[0][2], 'address': rows[0][3], 'country': rows[0][4], 'pincode':rows[0][5], 'sport':rows[0][6], 'agegroup':rows[0][7], 'graddegree':rows[0][8], 'college':rows[0][9], 'gradpercentage':rows[0][10]}
         json_data = json.dumps(content)
         return json_data
     else:
